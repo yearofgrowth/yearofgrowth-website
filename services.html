@@ -1,0 +1,876 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Services — Yasmin Wilnis · The Year of Growth</title>
+  <link href="https://fonts.googleapis.com/css2?family=Fraunces:ital,opsz,wght@0,9..144,200;0,9..144,400;0,9..144,700;1,9..144,200;1,9..144,400;1,9..144,700&family=Space+Mono:ital,wght@0,400;0,700;1,400&family=DM+Sans:wght@300;400;500&display=swap" rel="stylesheet" />
+  <style>
+    *, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
+
+    :root {
+      --cream: #F7F1E7;
+      --warm-white: #FDFAF4;
+      --terracotta: #C4622D;
+      --terracotta-light: #E8835A;
+      --deep: #1C1108;
+      --mid: #4A3020;
+      --sand: #E2D5C3;
+    }
+
+    html { scroll-behavior: smooth; }
+
+    body {
+      font-family: 'DM Sans', sans-serif;
+      background: var(--deep);
+      color: var(--cream);
+      overflow-x: hidden;
+    }
+
+    /* grain */
+    body::before {
+      content: '';
+      position: fixed;
+      inset: 0;
+      z-index: 9999;
+      pointer-events: none;
+      background-image: url("data:image/svg+xml,%3Csvg viewBox='0 0 200 200' xmlns='http://www.w3.org/2000/svg'%3E%3Cfilter id='n'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='0.75' numOctaves='4' stitchTiles='stitch'/%3E%3C/filter%3E%3Crect width='100%25' height='100%25' filter='url(%23n)' opacity='0.04'/%3E%3C/svg%3E");
+      opacity: 0.3;
+      mix-blend-mode: overlay;
+    }
+
+    /* ══ NAV ══ */
+    nav {
+      position: fixed; top: 0; left: 0; right: 0; z-index: 500;
+      display: flex; align-items: center; justify-content: space-between;
+      padding: 1.2rem 3.5rem;
+      background: rgba(28,17,8,0.92);
+      backdrop-filter: blur(12px);
+      border-bottom: 1px solid rgba(196,98,45,0.18);
+    }
+
+    .nav-logo {
+      font-family: 'Fraunces', serif;
+      font-size: 1rem;
+      font-weight: 700;
+      font-style: italic;
+      color: var(--terracotta-light);
+      text-decoration: none;
+    }
+
+    .nav-links { display: flex; gap: 2.5rem; list-style: none; align-items: center; }
+    .nav-links a {
+      font-size: 0.82rem;
+      color: rgba(247,241,231,0.45);
+      text-decoration: none;
+      transition: color 0.2s;
+    }
+    .nav-links a:hover,
+    .nav-links a.active { color: var(--cream); }
+
+    .nav-cta {
+      background: transparent !important;
+      border: 1px solid rgba(196,98,45,0.5) !important;
+      color: var(--terracotta-light) !important;
+      padding: 0.5rem 1.25rem !important;
+      border-radius: 2rem !important;
+      font-size: 0.82rem !important;
+      transition: all 0.2s !important;
+    }
+    .nav-cta:hover {
+      background: rgba(196,98,45,0.15) !important;
+      color: var(--cream) !important;
+    }
+
+    /* ══ PAGE HEADER ══ */
+    .page-header {
+      min-height: 60vh;
+      display: flex;
+      flex-direction: column;
+      justify-content: flex-end;
+      padding: 9rem 3.5rem 5rem;
+      position: relative;
+      overflow: hidden;
+      border-bottom: 1px solid rgba(196,98,45,0.12);
+    }
+
+    /* ambient glow */
+    .page-header::before {
+      content: '';
+      position: absolute;
+      top: -100px; right: -100px;
+      width: 700px; height: 700px;
+      background: radial-gradient(circle, rgba(196,98,45,0.07) 0%, transparent 65%);
+      pointer-events: none;
+    }
+
+    .page-header-inner {
+      position: relative;
+      z-index: 1;
+      max-width: 800px;
+      animation: fadeUp 0.9s ease both;
+    }
+
+    .eyebrow {
+      font-size: 0.72rem;
+      font-weight: 500;
+      letter-spacing: 0.1em;
+      text-transform: uppercase;
+      color: var(--terracotta);
+      margin-bottom: 1.25rem;
+      display: block;
+    }
+
+    .page-title {
+      font-family: 'Fraunces', serif;
+      font-size: clamp(3.2rem, 5.5vw, 5.5rem);
+      font-weight: 700;
+      line-height: 1.0;
+      letter-spacing: -0.025em;
+      color: var(--cream);
+      margin-bottom: 1.75rem;
+    }
+
+    .page-title em {
+      font-style: italic;
+      font-weight: 200;
+      color: var(--terracotta-light);
+    }
+
+    .page-intro {
+      font-size: 1rem;
+      line-height: 1.8;
+      color: rgba(247,241,231,0.5);
+      font-weight: 300;
+      max-width: 500px;
+    }
+
+    /* ══ TICKER ══ */
+    .ticker-wrap {
+      background: var(--terracotta);
+      padding: 0.65rem 0;
+      overflow: hidden;
+      position: relative;
+    }
+
+    .ticker-label {
+      position: absolute;
+      left: 0; top: 0; bottom: 0;
+      display: flex;
+      align-items: center;
+      padding: 0 1rem;
+      background: var(--deep);
+      font-family: 'Space Mono', monospace;
+      font-size: 0.58rem;
+      letter-spacing: 0.12em;
+      color: var(--terracotta-light);
+      z-index: 2;
+    }
+
+    .ticker-track {
+      display: flex;
+      gap: 3.5rem;
+      animation: ticker 30s linear infinite;
+      white-space: nowrap;
+      padding-left: 6rem;
+    }
+
+    .ticker-item {
+      font-size: 0.72rem;
+      letter-spacing: 0.06em;
+      color: rgba(247,241,231,0.88);
+      display: flex;
+      align-items: center;
+      gap: 1.5rem;
+    }
+
+    .ticker-item::after { content: '·'; opacity: 0.4; font-size: 1.2rem; }
+
+    @keyframes ticker {
+      from { transform: translateX(0); }
+      to   { transform: translateX(-50%); }
+    }
+
+    /* ══ SERVICE BLOCKS ══ */
+
+    /* each service is a full-width section */
+    .service-block {
+      border-bottom: 1px solid rgba(196,98,45,0.1);
+    }
+
+    /* photo sits full-width across the top */
+    .service-photo {
+      width: 100%;
+      height: 55vh;
+      overflow: hidden;
+      position: relative;
+    }
+
+    .service-photo img {
+      width: 100%;
+      height: 100%;
+      object-fit: cover;
+      object-position: center 25%;
+      filter: sepia(0.15) contrast(1.05) brightness(0.88);
+      display: block;
+      transition: transform 0.6s ease;
+    }
+
+    .service-block:hover .service-photo img {
+      transform: scale(1.02);
+    }
+
+    /* scan lines on photo */
+    .service-photo::before {
+      content: '';
+      position: absolute;
+      inset: 0;
+      z-index: 2;
+      background: repeating-linear-gradient(
+        0deg,
+        transparent,
+        transparent 3px,
+        rgba(0,0,0,0.09) 3px,
+        rgba(0,0,0,0.09) 4px
+      );
+      pointer-events: none;
+    }
+
+    /* gradient fade from photo into content below */
+    .service-photo::after {
+      content: '';
+      position: absolute;
+      bottom: 0; left: 0; right: 0;
+      height: 40%;
+      background: linear-gradient(transparent, var(--deep));
+      z-index: 3;
+      pointer-events: none;
+    }
+
+    /* placeholder when no photo provided */
+    .service-photo-placeholder {
+      width: 100%;
+      height: 55vh;
+      background: #261505;
+      border-bottom: 1px solid rgba(196,98,45,0.1);
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      position: relative;
+    }
+
+    .service-photo-placeholder::after {
+      content: '';
+      position: absolute;
+      bottom: 0; left: 0; right: 0;
+      height: 40%;
+      background: linear-gradient(transparent, var(--deep));
+      z-index: 3;
+    }
+
+    .placeholder-text {
+      font-family: 'Space Mono', monospace;
+      font-size: 0.6rem;
+      letter-spacing: 0.15em;
+      text-transform: uppercase;
+      color: rgba(196,98,45,0.3);
+    }
+
+    /* content beneath the photo */
+    .service-content {
+      padding: 3rem 3.5rem 5rem;
+      display: grid;
+      grid-template-columns: 1fr 1fr;
+      gap: 4rem;
+      align-items: start;
+    }
+
+    .service-left {}
+
+    .service-number {
+      font-family: 'Space Mono', monospace;
+      font-size: 0.62rem;
+      letter-spacing: 0.14em;
+      color: rgba(196,98,45,0.45);
+      margin-bottom: 1rem;
+    }
+
+    .service-name {
+      font-family: 'Fraunces', serif;
+      font-size: clamp(2rem, 3.2vw, 2.8rem);
+      font-weight: 700;
+      line-height: 1.1;
+      letter-spacing: -0.02em;
+      color: var(--cream);
+      margin-bottom: 0.75rem;
+    }
+
+    .service-name em {
+      font-style: italic;
+      font-weight: 200;
+      color: var(--terracotta-light);
+    }
+
+    .service-tagline {
+      font-size: 0.92rem;
+      line-height: 1.7;
+      color: rgba(247,241,231,0.45);
+      font-weight: 300;
+      font-style: italic;
+      margin-bottom: 2rem;
+      max-width: 380px;
+    }
+
+    .service-price-block {
+      display: inline-flex;
+      flex-direction: column;
+      margin-bottom: 2rem;
+    }
+
+    .price-label {
+      font-size: 0.62rem;
+      letter-spacing: 0.12em;
+      text-transform: uppercase;
+      color: rgba(247,241,231,0.3);
+      margin-bottom: 0.35rem;
+    }
+
+    .price-amount {
+      font-family: 'Fraunces', serif;
+      font-size: 2.2rem;
+      font-weight: 700;
+      color: var(--terracotta-light);
+      line-height: 1;
+    }
+
+    .price-note {
+      font-size: 0.68rem;
+      color: rgba(247,241,231,0.28);
+      margin-top: 0.35rem;
+      font-weight: 300;
+    }
+
+    .service-cta {
+      display: inline-block;
+      background: var(--terracotta);
+      color: var(--cream);
+      padding: 0.85rem 2rem;
+      border-radius: 3rem;
+      font-size: 0.88rem;
+      font-weight: 500;
+      text-decoration: none;
+      transition: background 0.2s, transform 0.15s;
+      box-shadow: 0 4px 20px rgba(196,98,45,0.25);
+    }
+
+    .service-cta:hover {
+      background: var(--terracotta-light);
+      transform: translateY(-2px);
+    }
+
+    /* right column */
+    .service-right {
+      padding-top: 0.5rem;
+    }
+
+    .service-desc {
+      font-size: 0.95rem;
+      line-height: 1.85;
+      color: rgba(247,241,231,0.52);
+      font-weight: 300;
+      margin-bottom: 2rem;
+    }
+
+    .includes-label {
+      font-size: 0.62rem;
+      letter-spacing: 0.12em;
+      text-transform: uppercase;
+      color: var(--terracotta);
+      margin-bottom: 1rem;
+    }
+
+    .includes-list {
+      list-style: none;
+    }
+
+    .includes-list li {
+      font-size: 0.88rem;
+      line-height: 1.6;
+      color: rgba(247,241,231,0.45);
+      font-weight: 300;
+      padding: 0.7rem 0;
+      border-bottom: 1px solid rgba(196,98,45,0.08);
+      display: flex;
+      align-items: flex-start;
+      gap: 0.85rem;
+    }
+
+    .includes-list li:first-child { border-top: 1px solid rgba(196,98,45,0.08); }
+
+    .includes-list li::before {
+      content: '→';
+      color: var(--terracotta);
+      font-size: 0.72rem;
+      flex-shrink: 0;
+      margin-top: 0.15rem;
+    }
+
+    .meta-row {
+      display: flex;
+      flex-wrap: wrap;
+      gap: 0.6rem;
+      margin-top: 1.5rem;
+    }
+
+    .meta-pill {
+      background: rgba(247,241,231,0.05);
+      border: 1px solid rgba(247,241,231,0.1);
+      padding: 0.4rem 0.9rem;
+      border-radius: 2rem;
+      font-size: 0.72rem;
+      color: rgba(247,241,231,0.4);
+      font-weight: 300;
+    }
+
+    /* ══ CTA SECTION ══ */
+    .page-cta {
+      background: var(--terracotta);
+      padding: 7rem 3.5rem;
+      text-align: center;
+      position: relative;
+      overflow: hidden;
+    }
+
+    .page-cta::before {
+      content: '';
+      position: absolute;
+      width: 500px; height: 500px;
+      border-radius: 50%;
+      background: rgba(255,255,255,0.06);
+      top: -200px; left: -100px;
+      pointer-events: none;
+    }
+
+    .page-cta::after {
+      content: '';
+      position: absolute;
+      width: 350px; height: 350px;
+      border-radius: 50%;
+      background: rgba(255,255,255,0.04);
+      bottom: -120px; right: -60px;
+      pointer-events: none;
+    }
+
+    .cta-eyebrow {
+      font-size: 0.72rem;
+      letter-spacing: 0.1em;
+      text-transform: uppercase;
+      color: rgba(247,241,231,0.55);
+      margin-bottom: 1rem;
+      position: relative; z-index: 1;
+    }
+
+    .cta-title {
+      font-family: 'Fraunces', serif;
+      font-size: clamp(2.4rem, 4vw, 3.8rem);
+      font-weight: 700;
+      color: var(--cream);
+      line-height: 1.08;
+      letter-spacing: -0.02em;
+      margin-bottom: 1.25rem;
+      position: relative; z-index: 1;
+    }
+
+    .cta-title em { font-style: italic; font-weight: 200; }
+
+    .cta-sub {
+      font-size: 0.98rem;
+      color: rgba(247,241,231,0.7);
+      font-weight: 300;
+      max-width: 420px;
+      margin: 0 auto 2.5rem;
+      line-height: 1.75;
+      position: relative; z-index: 1;
+    }
+
+    .btn-white {
+      display: inline-block;
+      background: var(--cream);
+      color: var(--terracotta);
+      padding: 1rem 2.5rem;
+      border-radius: 3rem;
+      font-size: 0.9rem;
+      font-weight: 500;
+      text-decoration: none;
+      transition: transform 0.2s, box-shadow 0.2s;
+      box-shadow: 0 4px 20px rgba(0,0,0,0.12);
+      position: relative; z-index: 1;
+    }
+
+    .btn-white:hover {
+      transform: translateY(-2px);
+      box-shadow: 0 10px 32px rgba(0,0,0,0.18);
+    }
+
+    /* ══ FOOTER ══ */
+    footer {
+      background: #100A04;
+      padding: 2.75rem 3.5rem;
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      flex-wrap: wrap;
+      gap: 1rem;
+      border-top: 1px solid rgba(196,98,45,0.1);
+    }
+
+    .footer-logo {
+      font-family: 'Fraunces', serif;
+      font-size: 1rem;
+      color: rgba(247,241,231,0.45);
+      font-weight: 700;
+      font-style: italic;
+    }
+
+    .footer-logo span {
+      display: block;
+      font-family: 'DM Sans', sans-serif;
+      font-size: 0.72rem;
+      font-weight: 300;
+      color: rgba(247,241,231,0.22);
+      margin-top: 0.15rem;
+      font-style: normal;
+    }
+
+    .footer-links { display: flex; gap: 2rem; list-style: none; }
+    .footer-links a {
+      font-size: 0.78rem;
+      color: rgba(247,241,231,0.25);
+      text-decoration: none;
+      transition: color 0.2s;
+      font-weight: 300;
+    }
+    .footer-links a:hover { color: var(--terracotta-light); }
+
+    .footer-copy {
+      font-size: 0.68rem;
+      color: rgba(247,241,231,0.15);
+    }
+
+    /* ══ ANIMATION ══ */
+    @keyframes fadeUp {
+      from { opacity: 0; transform: translateY(20px); }
+      to   { opacity: 1; transform: translateY(0); }
+    }
+
+    /* ══ RESPONSIVE ══ */
+    @media (max-width: 960px) {
+      nav { padding: 1rem 1.5rem; }
+      .nav-links { display: none; }
+
+      .page-header { padding: 7rem 1.5rem 3.5rem; min-height: auto; }
+      .service-photo, .service-photo-placeholder { height: 40vh; }
+      .service-content { grid-template-columns: 1fr; gap: 2rem; padding: 2.5rem 1.5rem 4rem; }
+      .page-cta { padding: 4.5rem 1.5rem; }
+      footer { flex-direction: column; text-align: center; padding: 2rem 1.5rem; }
+    }
+    /* ══ JUMP MENU ══ */
+    .jump-menu {
+      background: #150D04;
+      border-bottom: 1px solid rgba(196,98,45,0.12);
+      padding: 0 3.5rem;
+      display: flex;
+      align-items: center;
+      gap: 0;
+      position: sticky;
+      top: 62px;
+      z-index: 400;
+    }
+
+    .jump-link {
+      font-size: 0.78rem;
+      font-weight: 300;
+      color: rgba(247,241,231,0.38);
+      text-decoration: none;
+      padding: 1rem 1.5rem 1rem 0;
+      margin-right: 1.5rem;
+      letter-spacing: 0.02em;
+      border-bottom: 2px solid transparent;
+      transition: color 0.2s, border-color 0.2s;
+      white-space: nowrap;
+    }
+
+    .jump-link:hover {
+      color: var(--cream);
+      border-bottom-color: var(--terracotta);
+    }
+
+    .jump-link.active {
+      color: var(--terracotta-light);
+      border-bottom-color: var(--terracotta);
+    }
+
+    @media (max-width: 960px) {
+      .jump-menu {
+        padding: 0 1.5rem;
+        top: 56px;
+        overflow-x: auto;
+      }
+      .jump-link { font-size: 0.72rem; padding: 0.85rem 1.25rem 0.85rem 0; }
+    }
+
+  </style>
+</head>
+<body>
+
+<!-- NAV -->
+<nav>
+  <a href="index.html" class="nav-logo">The Year of Growth</a>
+  <ul class="nav-links">
+    <li><a href="about.html">About</a></li>
+    <li><a href="services.html" class="active">Services</a></li>
+    <li><a href="portfolio.html">Creations</a></li>
+    <li><a href="https://calendly.com/yearofgrowth/intro-call" class="nav-cta">Let's talk</a></li>
+  </ul>
+</nav>
+
+<!-- PAGE HEADER -->
+<header class="page-header">
+  <div class="page-header-inner">
+    <span class="eyebrow">Services</span>
+    <h1 class="page-title">
+      The work we<br>do <em>together.</em>
+    </h1>
+    <p class="page-intro">
+      Every project starts with a conversation. You bring the vision. I bring the creative direction, the strategy and the experience to make it real.
+    </p>
+  </div>
+</header>
+
+<!-- TICKER -->
+<div class="ticker-wrap">
+  <div class="ticker-label">010 ●</div>
+  <div class="ticker-track">
+    <span class="ticker-item">Creative Direction</span>
+    <span class="ticker-item">Event Strategy</span>
+    <span class="ticker-item">Vision into Reality</span>
+    <span class="ticker-item">Brand Storytelling</span>
+    <span class="ticker-item">Presence over Performance</span>
+    <span class="ticker-item">Rotterdam 🧡</span>
+    <span class="ticker-item">2006 → 2026</span>
+    <span class="ticker-item">Creative Direction</span>
+    <span class="ticker-item">Event Strategy</span>
+    <span class="ticker-item">Vision into Reality</span>
+    <span class="ticker-item">Brand Storytelling</span>
+    <span class="ticker-item">Presence over Performance</span>
+    <span class="ticker-item">Rotterdam 🧡</span>
+    <span class="ticker-item">2006 → 2026</span>
+  </div>
+</div>
+
+<!-- JUMP MENU -->
+<nav class="jump-menu" aria-label="Jump to service">
+  <a href="#event-management" class="jump-link active">Event Management</a>
+  <a href="#consulting" class="jump-link">Vision Session</a>
+  <a href="#videography" class="jump-link">Brand Film</a>
+</nav>
+
+<script>
+  // highlight jump link on scroll
+  const sections = ['event-management', 'consulting', 'videography'];
+  const links = document.querySelectorAll('.jump-link');
+
+  const observer = new IntersectionObserver((entries) => {
+    entries.forEach(entry => {
+      if (entry.isIntersecting) {
+        links.forEach(l => l.classList.remove('active'));
+        const active = document.querySelector(`.jump-link[href="#${entry.target.id}"]`);
+        if (active) active.classList.add('active');
+      }
+    });
+  }, { threshold: 0.35 });
+
+  sections.forEach(id => {
+    const el = document.getElementById(id);
+    if (el) observer.observe(el);
+  });
+
+  // smooth scroll
+  document.querySelectorAll('.jump-link').forEach(link => {
+    link.addEventListener('click', e => {
+      e.preventDefault();
+      const target = document.querySelector(link.getAttribute('href'));
+      if (target) target.scrollIntoView({ behavior: 'smooth' });
+    });
+  });
+</script>
+
+<!-- SERVICE 01 — Event Management -->
+<article class="service-block" id="event-management">
+
+  <div class="service-photo">
+    <img src="websize_yasmin_atelier_murier_13.jpg" alt="Creative Direction and Event Management" />
+  </div>
+
+  <div class="service-content">
+    <div class="service-left">
+      <div class="service-number">01 / SERVICE</div>
+      <h2 class="service-name">Creative Direction<br>&amp; Full Event<br><em>Management</em></h2>
+      <p class="service-tagline">For when you want someone to hold the vision as carefully as you do.</p>
+    </div>
+
+    <div class="service-right">
+      <p class="service-desc">
+        From the first creative conversation to the final moment of the evening, I hold the vision and the logistics together. This is full partnership: concept development, vendor coordination, run-of-show, day-of execution. Everything taken care of, so you can actually be present at your own event.
+      </p>
+
+      <div class="includes-label">What's included</div>
+      <ul class="includes-list">
+        <li>Creative concept and experience design</li>
+        <li>Vendor research, briefing and coordination</li>
+        <li>Budget and timeline management</li>
+        <li>Run-of-show and team briefing</li>
+        <li>Day-of execution and on-site management</li>
+        <li>Post-event debrief document</li>
+      </ul>
+
+      <div class="service-price-block">
+        <div class="price-label">Starting from</div>
+        <div class="price-amount">€2,500</div>
+        <div class="price-note">Larger projects quoted on scope</div>
+      </div>
+
+      <div class="meta-row">
+        <span class="meta-pill">Rotterdam and beyond</span>
+        <span class="meta-pill">In-person collaboration</span>
+        <span class="meta-pill">Timeline depends on scope</span>
+      </div>
+
+      <a href="https://calendly.com/yearofgrowth/intro-call" class="service-cta">Book a free intro call →</a>
+    </div>
+  </div>
+
+</article>
+
+<!-- SERVICE 02 — Consulting -->
+<article class="service-block" id="consulting">
+
+  <div class="service-photo">
+    <img src="DSC04813.JPG" alt="Strategy and Consulting Session" />
+  </div>
+
+  <div class="service-content">
+    <div class="service-left">
+      <div class="service-number">02 / SERVICE</div>
+      <h2 class="service-name">Strategy &amp;<br>Consulting<br><em>Session</em></h2>
+      <p class="service-tagline">One focused session that changes how you see the whole thing.</p>
+    </div>
+
+    <div class="service-right">
+      <p class="service-desc">
+        You have an idea for an event or a community. We go back to the core: your mission, your audience, the experience you want to create. Together we translate that into something tangible. You leave with clarity, a concept and three real next steps. A written summary is sent to you within 48 hours.
+      </p>
+
+      <div class="includes-label">What happens in the session</div>
+      <ul class="includes-list">
+        <li>We clarify your mission and what this event is really for</li>
+        <li>We map your audience and what they need from the experience</li>
+        <li>We work through format, concept and feel</li>
+        <li>Three concrete next steps, written down together</li>
+        <li>Written summary sent within 48 hours</li>
+      </ul>
+
+      <div class="service-price-block">
+        <div class="price-label">Fixed rate</div>
+        <div class="price-amount">€175</div>
+        <div class="price-note">60-minute session, standalone</div>
+      </div>
+
+      <div class="meta-row">
+        <span class="meta-pill">60 minutes</span>
+        <span class="meta-pill">Video call</span>
+        <span class="meta-pill">Written summary included</span>
+      </div>
+
+      <a href="https://calendly.com/yearofgrowth/intro-call" class="service-cta">Book your session →</a>
+    </div>
+  </div>
+
+</article>
+
+<!-- SERVICE 03 — Videography -->
+<article class="service-block" id="videography">
+
+  <div class="service-photo">
+    <img src="DSC04808.JPG" alt="Brand Storytelling and Videography" />
+  </div>
+
+  <div class="service-content">
+    <div class="service-left">
+      <div class="service-number">03 / SERVICE</div>
+      <h2 class="service-name">Brand Storytelling<br>&amp;<br><em>Videography</em></h2>
+      <p class="service-tagline">Your mission deserves to be seen. A film that captures not just what you do, but why it matters.</p>
+    </div>
+
+    <div class="service-right">
+      <p class="service-desc">
+        The best brand films feel like an honest window into something real. A film that carries your mission, your values and the people at the heart of your work in a way that words alone cannot. I take on a small number of videography projects for clients whose missions I genuinely believe in.
+      </p>
+
+      <div class="includes-label">What's included</div>
+      <ul class="includes-list">
+        <li>Pre-production call to map the story and narrative</li>
+        <li>Full shoot day on location</li>
+        <li>Professional editing and colour grading</li>
+        <li>One round of revisions</li>
+        <li>Final film in web and social formats</li>
+      </ul>
+
+      <div class="service-price-block">
+        <div class="price-label">Starting from</div>
+        <div class="price-amount">€1,500</div>
+        <div class="price-note">Shoot day and editing included</div>
+      </div>
+
+      <div class="meta-row">
+        <span class="meta-pill">4-week delivery</span>
+        <span class="meta-pill">Rotterdam and surrounding</span>
+        <span class="meta-pill">Mission films</span>
+      </div>
+
+      <a href="https://calendly.com/yearofgrowth/intro-call" class="service-cta">Tell me what you're building →</a>
+    </div>
+  </div>
+
+</article>
+
+<!-- CTA -->
+<section class="page-cta">
+  <div class="cta-eyebrow">Ready to start</div>
+  <h2 class="cta-title">
+    Not sure which service<br>is right for you?<br><em>Let's figure it out together.</em>
+  </h2>
+  <p class="cta-sub">
+    Book a free 30-minute intro call. Tell me what you want to create and we will work out the best way forward from there.
+  </p>
+  <a href="https://calendly.com/yearofgrowth/intro-call" class="btn-white">Book your free intro call →</a>
+</section>
+
+<!-- FOOTER -->
+<footer>
+  <div class="footer-logo">
+    The Year of Growth
+    <span>by Yasmin Wilnis · Rotterdam</span>
+  </div>
+  <ul class="footer-links">
+    <li><a href="about.html">About</a></li>
+    <li><a href="services.html">Services</a></li>
+    <li><a href="portfolio.html">Creations</a></li>
+    <li><a href="https://linkedin.com/in/yasminwilnis">LinkedIn</a></li>
+    <li><a href="https://calendly.com/yearofgrowth/intro-call">Book a call</a></li>
+  </ul>
+  <div class="footer-copy">© 2026 Yasmin Wilnis · Rotterdam</div>
+</footer>
+
+</body>
+</html>
